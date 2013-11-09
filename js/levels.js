@@ -1,29 +1,13 @@
 
-define(["underscore", "classroom", "student", "graph"], function (_, Classroom, Student, Graph) {
+define(["underscore", "graph", "director"], function (_, Graph, Director) {
     var levels = {
-        buildLevel: function (definition) {
-            var graph, classroom;
+        buildLevelDirector: function (definition) {
+            var graph, director;
 
             graph = this.buildGraph(definition);
-            classroom = this.buildBackboneCollection(graph);
+            director = new Director(graph);
 
-            return classroom;
-        },
-
-        buildBackboneCollection: function (graph) {
-            var models, classroom;
-
-            models = [];
-            graph.eachNode(function (node) {
-                var student;
-
-                student = new Student();
-                student.node = node;
-                models.push(node);
-            });
-            classroom = new Classroom(models);
-
-            return classroom;
+            return director;
         },
 
         buildGraph: function (definition) {
@@ -35,7 +19,7 @@ define(["underscore", "classroom", "student", "graph"], function (_, Classroom, 
             _.each(definition.students, function (studentDef) {
                 var student;
                 student = graph.getOrCreateNode(studentDef.name);
-                student.affinity = studentDef.affinity;
+                student.extroversion = studentDef.extroversion;
             });
 
             _.each(_.keys(definition.affinities), function (comboKey) {

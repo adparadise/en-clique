@@ -66,6 +66,7 @@ define(["util"], function (util) {
             return edge;
         };
 
+        /** callback(name); */
         proto.eachName = function (callback) {
             var index, name;
             for (index = 0; index < this.nodeNames.length; index++) {
@@ -74,6 +75,7 @@ define(["util"], function (util) {
             }
         };
 
+        /** callback(node, name); */
         proto.eachNode = function (callback) {
             var self = this;
             this.eachName(function (name) {
@@ -82,6 +84,7 @@ define(["util"], function (util) {
             });
         };
 
+        /** callback(edge, toName); */
         proto.eachEdgeFrom = function (fromName, callback) {
             var self = this;
             this.eachName(function (toName) {

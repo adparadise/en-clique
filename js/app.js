@@ -1,8 +1,15 @@
 define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walrus', 'sigma'], function(Backbone, $, _, levels, definitions, walrus, sigma) {
     var app = {
         init: function() {
-            levels.buildLevel(definitions[0]);
-            console.log(levels);
+            var director;
+
+            director = levels.buildLevelDirector(definitions[0]);
+            director.classroom.each(function (student) {
+                console.log(student.get('name'));
+                console.log('  extroversion: ' + student.get('extroversion'));
+                console.log('  leaderName: ' + student.get('leaderName'));
+            });
+
             var personInfo = Walrus.Parser.parse( $("#personInfo").html() );
             var personResult = personInfo.compile({
                 person: {name: "Janet", "id": "1"}
