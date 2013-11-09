@@ -7,13 +7,17 @@ requirejs.config({
             //Once loaded, use the global 'Backbone' as the
             //module value.
             exports: 'Backbone'
+        },
+        'walrus': {
+            exports: 'Walrus'
         }
     },
     paths: {
         'jquery': 'lib/jquery',
         'underscore': 'lib/lodash',
         'backbone': 'lib/backbone',
-        'sigma': 'lib/sigma.min'
+        'sigma': 'lib/sigma.min',
+        'walrus': 'lib/walrus'
     }
 });
 
