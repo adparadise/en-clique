@@ -13,15 +13,10 @@ requirejs.config({
         'jquery': 'lib/jquery',
         'underscore': 'lib/lodash',
         'backbone': 'lib/backbone',
-        'sigma': 'lib/sigma.min',
-        'graph': 'graph',
-        'clique': 'clique',
-        'util': 'util',
-        'app': 'app'
-
+        'sigma': 'lib/sigma.min'
     }
 });
 
-require(["app"], function(app) {
+require(['app'], function(app) {
     app.init();
 });

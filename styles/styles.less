@@ -1,0 +1,47 @@
+// Reset Script
+@import 'normalize.less';
+
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 1em;
+}
+.person {
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background: #fae4c3;
+  border: .1em solid darken(#fae4c3, 10%);
+  cursor: pointer;
+  
+  &:after {
+    display: block;
+    content: '';
+    position: relative;
+    top: 30%;
+    left: 5%;
+    height: 100%;
+    width: 90%;
+    border: .1em solid darken(#ff0000, 30%);
+    border-radius: .2em .2em 0 0;
+    background: darken(#ff0000, 30%);
+    z-index: -1;
+  }
+  &:hover &-name {
+    opacity: 1;
+  }
+  &-name {
+    cursor: pointer;
+    opacity: 0;
+    background: hsla(22, 100, 90, .5);
+    border-radius: .1em;
+    position: relative;
+    top: 140%;
+    padding: .1em .5em;
+    box-shadow: 0 0 .2em #aaa;
+  }
+}
+.active, .active:after {
+  box-shadow: 0 0 .3em green;
+}
