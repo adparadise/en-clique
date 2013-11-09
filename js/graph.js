@@ -7,36 +7,90 @@ function Graph () {
 (function (proto) {
     proto.initialize = function () {
         this.nodes = {};
+        this.nodeNames = [];
         this.edges = {};
+        this.blankEdge = {};
     };
 
-    proto.addNode = function (key, node) {
-        assert(!this.nodes[key]);
-        this.nodes[key] = node;
+    proto.setBlankEdge = function (blankEdge) {
+        this.blankEdge = blankEdge;
+    }
+
+    proto.addNode = function (name, node) {
+        assert(!this.nodes[name]);
+
+        this.nodes[name] = node;
+        this.nodeNames.push(name);
     };
 
-    proto.setEdgeValue = function (fromKey, toKey, key, value) {
+    proto.setEdgeValue = function (fromName, toName, key, value) {
+        assert(this.nodes[fromName]);
+        assert(this.nodes[toName]);
+        assert(fromName !== toName);
+
         var edge;
 
-        edge = getEdge(fromKey, toKey);
+        edge = this.getOrCreateEdge(fromName, toName);
         edge.setValue(key, value);
     };
 
-    proto.getEdge = function (fromKey, toKey) {
+    proto.getOrCreateEdge = function (fromName, toName) {
         var comboKey, edge;
 
-        comboKey = buildComboKey(fromKey, toKey);
+        comboKey = buildComboKey(fromName, toName);
         edge = this.edges[comboKey];
         if (!edge) {
-            edge = new Edge(fromKey, toKey);
-            this.edge[comboKey] = edge;
+            edge = new Edge(fromName, toName);
+            this.edges[comboKey] = edge;
         }
 
         return edge;
     };
 
-    buildComboKey = function (fromKey, toKey) {
-        return fromKey + "__" + toKey;
+    proto.getEdge = function (fromName, toName) {
+        var comboKey, edge;
+
+        comboKey = buildComboKey(fromName, toName);
+        edge = this.edges[comboKey];
+
+        return edge;
+    };
+
+    proto.eachName = function (callback) {
+        var index, name;
+        for (index = 0; index < this.nodeNames.length; index++) {
+            name = this.nodeNames[index];
+            callback(name);
+        }
+    };
+
+    proto.eachNode = function (callback) {
+        var self = this;
+        this.eachName(function (name) {
+            var node = self.nodes[name];
+            callback(node, name);
+        });
+    };
+
+    proto.eachEdgeFrom = function (fromName, callback) {
+        var self = this;
+        this.eachName(function (toName) {
+            var comboKey, edge;
+
+            if (fromName === toName) {
+                return;
+            }
+            comboKey = buildComboKey(fromName, toName);
+            edge = self.edges[comboKey];
+            if (!edge) {
+                edge = self.blankEdge;
+            }
+            callback(edge, toName);
+        });
+    };
+
+    function buildComboKey (fromName, toName) {
+        return fromName + "__" + toName;
     };
 }(Graph.prototype));
 
@@ -46,8 +100,12 @@ function Edge () {
 }
 
 (function (proto) {
-    proto.initialize = function (fromKey, toKey) {
-        this.fromKey = fromKey;
-        this.toKey = toKey;
+    proto.initialize = function (fromName, toName) {
+        this.fromName = fromName;
+        this.toName = toName;
+    };
+
+    proto.setValue = function (key, value) {
+        this[key] = value;
     };
 }(Edge.prototype));
