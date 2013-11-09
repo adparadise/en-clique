@@ -10,6 +10,9 @@ requirejs.config({
         },
         'walrus': {
             exports: 'Walrus'
+        },
+        'sigma': {
+            exports: 'sigma'
         }
     },
     paths: {
