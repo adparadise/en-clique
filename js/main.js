@@ -10,10 +10,10 @@ requirejs.config({
         }
     },
     paths: {
-        'jquery': 'jquery',
-        'underscore': 'lodash',
-        'backbone': 'backbone',
-        'sigma': 'sigma.min',
+        'jquery': 'lib/jquery',
+        'underscore': 'lib/lodash',
+        'backbone': 'lib/backbone',
+        'sigma': 'lib/sigma.min',
         'graph': 'graph',
         'clique': 'clique',
         'util': 'util',
