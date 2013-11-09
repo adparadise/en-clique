@@ -8,10 +8,10 @@ define(['js/graph'], function (Graph) {
                 var calledNameHash, calledNames;
 
                 graph = new Graph();
-                person1 = { name: "one" };
-                person2 = { name: "two" };
-                graph.addNode(person1.name, person1);
-                graph.addNode(person2.name, person2);
+                person1 = graph.getOrCreateNode("one");
+                person2 = graph.getOrCreateNode("two");
+                person1.name = "one";
+                person2.name = "two";
 
                 calledNameHash = {};
                 calledNames = [];
@@ -36,10 +36,10 @@ define(['js/graph'], function (Graph) {
                 var edgeValues;
 
                 graph = new Graph();
-                person1 = { name: "one" };
-                person2 = { name: "two" };
-                graph.addNode(person1.name, person1);
-                graph.addNode(person2.name, person2);
+                person1 = graph.getOrCreateNode("one");
+                person2 = graph.getOrCreateNode("two");
+                person1.name = "one";
+                person2.name = "two";
                 graph.setEdgeValue(person1.name, person2.name, "value", 0.5 );
                 graph.setEdgeValue(person2.name, person1.name, "value", -0.5);
 

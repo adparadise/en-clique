@@ -1,5 +1,5 @@
 
-define(["js/util"], function (util) {
+define(["util"], function (util) {
     var assert = util.assert;
 
     function Graph () {
@@ -16,13 +16,21 @@ define(["js/util"], function (util) {
 
         proto.setBlankEdge = function (blankEdge) {
             this.blankEdge = blankEdge;
-        }
+        };
 
-        proto.addNode = function (name, node) {
-            assert(!this.nodes[name]);
+        proto.getOrCreateNode = function (name) {
+            var node;
 
-            this.nodes[name] = node;
-            this.nodeNames.push(name);
+            node = this.nodes[name];
+            if (!node) {
+                node = {
+                    name: name
+                };
+                this.nodeNames.push(name);
+                this.nodes[name] = node;
+            }
+
+            return node;
         };
 
         proto.setEdgeValue = function (fromName, toName, key, value) {
