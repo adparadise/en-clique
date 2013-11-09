@@ -1,5 +1,5 @@
 
-define(['js/graph'], function (Graph) {
+define(['graph'], function (Graph) {
     describe("Graph", function () {
         describe("eachNode", function () {
             it("should callback each node", function () {
