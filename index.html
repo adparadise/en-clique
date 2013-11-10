@@ -6,12 +6,15 @@
     </head>
     <body>
         <div id="gameBoard"></div>
+        <canvas id="gameBoard-background"></canvas>
         <div id="personInfo" class="hidden">
-            {{:each @person do}}
-                <div class="person">
-                    <span data-id="{{id}}" class="person-name">{{name}}<span>
-                </div>
+            <ul class="students">
+            {{:each students | :as( 'student' ) do}}
+                <li class="person student-{{name() | :downcase}} {{:if isLeader() | :equals(true) do}}is-leader{{end}} clique-{{leaderName() | :downcase}}">
+                    <span data-id="{{name()}}" class="person-name">{{name()}}<span>
+                </li>
             {{end}}
+            </ul>
         </div>
     </body>
 </html>

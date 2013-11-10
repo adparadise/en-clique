@@ -11,8 +11,14 @@ requirejs.config({
         'walrus': {
             exports: 'Walrus'
         },
+        'walrus.collections': ['walrus'],
+        'walrus.inflections': ['walrus'],
+        'walrus.strings': ['walrus'],
         'sigma': {
             exports: 'sigma'
+        },
+        'sigma.parseJson': {
+            deps: ['jquery', 'sigma']
         }
     },
     paths: {
@@ -20,7 +26,12 @@ requirejs.config({
         'underscore': 'lib/lodash',
         'backbone': 'lib/backbone',
         'sigma': 'lib/sigma.min',
-        'walrus': 'lib/walrus'
+        'sigma.parseJson': 'lib/sigma.parseJson',
+        'walrus': 'lib/walrus',
+        'walrus.collections': 'lib/walrus.collections',
+        'walrus.inflections': 'lib/walrus.inflections',
+        'walrus.strings': 'lib/walrus.strings',
+
     }
 });
 

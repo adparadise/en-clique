@@ -11,32 +11,49 @@ body {
     padding: 0;
 
     #gameBoard {
-        position: fixed;
-        padding: 2em;
-        height: 100%;
-        width: 100%;
-        background-color: lighten(#A7DBEB, 20%);
-        background-image: linear-gradient(to bottom, #A7DBEB 0%, #546F9C 100%);
+        background-color: transparent;
+
+        &, &-background {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+        }
+        &-background {
+            background-color: lighten(#A7DBEB, 20%);
+            background-image: linear-gradient(to bottom, #A7DBEB 0%, #546F9C 100%);
+            z-index: -1;
+        }
     }
+}
+.students {
+    list-style-type: none;
 }
 .person {
     height: 2em;
     width: 2em;
+    // padding: 4em 1em 2em 1em; 
+    margin: 4em 1em 2em 1em;
     border-radius: 50%;
     background: #fae4c3;
     border: .1em solid darken(#fae4c3, 10%);
     cursor: pointer;
+    position: relative;
+
+    &.is-leader, &.is-leader:after {
+        box-shadow: 0 0 0 .1em #fff,
+                    0 0 .2em .2em #fff;
+    }
 
     &:after {
         display: block;
         content: '';
         position: relative;
-        top: 30%;
-        left: 5%;
-        height: 100%;
-        width: 90%;
+        top: 90%;
+        left: -25%;
+        height: 50%;
+        width: 150%;
         border: .1em solid darken(#ff0000, 30%);
-        border-radius: 50% 50% .1em .1em;
+        border-radius: 100% 100% .1em .1em;
         background: darken(#ff0000, 30%);
         z-index: -1;
     }
@@ -45,12 +62,14 @@ body {
     }
     &-name {
         cursor: pointer;
+        text-align: center;
         opacity: 0;
         background: hsla(22, 100, 90, .5);
         border-radius: .1em;
-        position: relative;
-        top: 140%;
-        padding: .1em .5em;
+        position: absolute;
+        top: 150%;
+        width: 250%;
+        left: -75%;
         box-shadow: 0 0 .2em #aaa;
     }
 }
