@@ -27,6 +27,7 @@ requirejs.config({
         'backbone': 'lib/backbone',
         'sigma': 'lib/sigma.min',
         'sigma.parseJson': 'lib/sigma.parseJson',
+        'facade': 'lib/facade',
         'walrus': 'lib/walrus',
         'walrus.collections': 'lib/walrus.collections',
         'walrus.inflections': 'lib/walrus.inflections',

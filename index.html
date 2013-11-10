@@ -10,7 +10,7 @@
         <div id="personInfo" class="hidden">
             <ul class="students">
             {{:each students | :as( 'student' ) do}}
-                <li class="person student-{{name() | :downcase}} {{:if isLeader() | :equals(true) do}}is-leader{{end}} clique-{{leaderName() | :downcase}}">
+                <li class="person student-{{name() | :downcase}}{{:if isLeader() | :equals(true) do}} is-leader{{end}}{{:if clique() | :equals('f') do}} has-message active-message{{end}} clique-{{leaderName() | :downcase}}">
                     <span data-id="{{name()}}" class="person-name">{{name()}}<span>
                 </li>
             {{end}}

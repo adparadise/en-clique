@@ -15,8 +15,8 @@ body {
 
         &, &-background {
             position: fixed;
-            height: 100%;
-            width: 100%;
+            // height: auto;
+            // width: 100%;
         }
         &-background {
             background-color: lighten(#A7DBEB, 20%);
@@ -28,6 +28,13 @@ body {
 .students {
     list-style-type: none;
 }
+@-webkit-keyframes glow {
+    50% { box-shadow: 0 0 .5em lightgreen; }
+}
+@keyframes glow {
+    50% { box-shadow: 0 0 .5em lightgreen; }
+}
+
 .person {
     display: inline-block;
     height: 2em;
@@ -39,13 +46,38 @@ body {
     border: .1em solid darken(#fae4c3, 10%);
     cursor: pointer;
     position: relative;
+    // z-index: 1;
 
-    &.is-leader, &.is-leader:after {
+    &.is-leader, &.is-leader:before {
         box-shadow: 0 0 0 .1em #fff,
                     0 0 .2em .2em #fff;
     }
+    &.has-message{
+        &.active-message:after {
+            -webkit-animation-name: glow;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-iteration-count: infinite;
+            animation-name: glow;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+        &:after {
+            content: '';
+            background: url('/images/envelope-128.png');
+            background-size: 32px;
+            width: 28px;
+            height: 17px;
+            display: block;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            background-position: -2px -7px;
+            border-radius: 5%;
+        }
+    }
 
-    &:after {
+
+    &:before {
         display: block;
         content: '';
         position: relative;
