@@ -1,6 +1,7 @@
 define([], function () {
-    // Never write what you can say
-    // Never say what you can wink
+    // "Never write if you can speak; 
+    //  never speak if you can nod; 
+    //  never nod if you can wink."
 
     var Classroom = new Classroom();
 
