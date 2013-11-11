@@ -53,14 +53,15 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
                     $(selectedPersonEl).removeClass("selected");
                     stage.clear();
                 });
-                var edges = [];
-                // edges.push({origin: "oppenheimer", destination: "barney"});
-                // edges.push({origin: "oppenheimer",  destination: "umberto"});
-                // edges.push({origin: "umberto",  destination: "oppenheimer"});
+                var edges = [], currentStroke;
 
-                // console.log(director.graph.getOrCreateNode($(this).data("id")));
                 director.graph.eachEdgeFrom($(this).data("id"), function(edge, toName) {
-                    if(edge.toName) {
+                    if(edge.affinity) {
+                        if(edge.affinity > 0) {
+                            currentStroke = "#00FF00";
+                        } else {
+                            currentStroke = "#FF0000";
+                        }
                         console.log(edge, toName);
                         edges.push({origin: edge.fromName, destination: edge.toName});
 
@@ -75,9 +76,9 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
                                     $destination = $(prefix + edge.destination),
                                     position = {
                                         lineWidth: 4,
-                                        strokeStyle: "#FFFFFF",
+                                        strokeStyle: currentStroke,
                                         shadowBlur: 6,
-                                        shadowColor: "#FFFFFF",
+                                        shadowColor: currentStroke,
                                         x: $origin.offset().left + $origin.outerWidth()/2,
                                         y: $origin.offset().top + $origin.outerHeight()/2,
                                         endX: $destination.offset().left + $destination.outerWidth()/2,
@@ -98,33 +99,6 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
                 // personInfo.compile({})
             });
 
-
-            // var sigInst = sigma.init($("#gameBoard").get(0)).drawingProperties({
-            //     defaultLabelColor: '#fff'
-            // }).graphProperties({
-            //     minNodeSize: 0.5,
-            //     maxNodeSize: 5
-            // });
-
-            // var data = director.classroom;
-            // var edgeId = 0;
-
-            // console.log(data);
-            // director.classroom.each(function (student) {
-            //     var id = student.get("name");
-            //     sigInst.addNode(id, student);
-            //     console.log(student);
-            // });
-
-            // director.classroom.each(function (student) {
-            //     var target = student.get("leaderName");
-            //     var source = student.get("name");
-            //     console.log(target);
-
-            //     sigInst.addEdge(edgeId++, source, target, student);
-            // });
-
-            // sigInst.draw();
         }
     };
     return app;
