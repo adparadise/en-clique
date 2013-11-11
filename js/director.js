@@ -1,4 +1,4 @@
-define(["classroom", "student", "graph_classroom_binding"], function (Classroom, Student, GraphClassroomBinding) {
+define(["classroom", "student", "leader_finder", "util"], function (Classroom, Student, LeaderFinder, Util) {
     function Director () {
         this.initialize.apply(this, arguments);
     }
@@ -8,9 +8,8 @@ define(["classroom", "student", "graph_classroom_binding"], function (Classroom,
             this.graph = graph;
 
             this.classroom = buildBackboneCollection(this.graph);
-            this.binding = new GraphClassroomBinding();
 
-            this.binding.calculateCliquesAndUpdate(this.graph, this.classroom);
+            Util.applyMethodToGraphAndClassroom(this.graph, this.classroom, LeaderFinder.apply);
         };
 
         function buildBackboneCollection (graph) {

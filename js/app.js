@@ -66,7 +66,6 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
             director.classroom.each(function(student) {
                 students.push(student);
             });
-            console.log(students);
             var personResult = personInfo.compile({students: students});
 
             $("#gameBoard").append(personResult);

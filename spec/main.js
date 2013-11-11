@@ -3,7 +3,8 @@ requirejs.config({
     baseUrl: "/js",
 });
 
-require(["../spec/graph_spec"], function () {
+require(["../spec/graph_spec",
+         "../spec/leader_finder_spec"], function () {
     var jasmineEnv, htmlReporter;
     var currentWindowOnload;
 
