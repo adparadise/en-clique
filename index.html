@@ -8,10 +8,21 @@
         <div id="gameBoard"></div>
         <canvas id="gameBoard-background"></canvas>
         <div id="personInfo" class="hidden">
+            <div class="person-info">
+                <h1 class="person-info-name">{{name}}</h1>
+                <dl class="person-info-details">
+                    {{:each details do}}
+                        <dt>{{title}}</dt>
+                        <dd>{{value}}</dd>
+                    {{end}}
+                </dl>
+            </div>
+        </div>
+        <div id="person" class="hidden">
             <ul class="students">
-            {{:each students | :as( 'student' ) do}}
-                <li class="person student-{{name() | :downcase}}{{:if isLeader() | :equals(true) do}} is-leader{{end}}{{:if clique() | :equals('f') do}} has-message active-message{{end}} clique-{{leaderName() | :downcase}}">
-                    <span data-id="{{name()}}" class="person-name">{{name()}}<span>
+            {{:each students | :as('student') do}}
+                <li data-id="{{name()}}" class="person student-{{name() | :downcase}}{{:if isLeader() | :equals(true) do}} is-leader{{end}}{{:if clique() | :equals('f') do}} has-message active-message{{end}} clique-{{leaderName() | :downcase}}">
+                    <span class="person-name">{{name()}}<span>
                 </li>
             {{end}}
             </ul>

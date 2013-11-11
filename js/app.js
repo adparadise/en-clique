@@ -29,36 +29,12 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
                 }
 
             };
+            var person = Walrus.Parser.parse( $("#person").html() );
             var personInfo = Walrus.Parser.parse( $("#personInfo").html() );
 
             var stage = Facade($("#gameBoard-background").get(0), 1400, 750);
             // var student_image = Facade.Image("images/p2_front.png", {anchor: "center"});
-            var edges = [];
-            director.classroom.each(function(student) {
-                // edges 
-            });
-            stage.draw(function() {
-                this.clear();
-                
-                // this.addToStage(student_image, {x: 20, y: 20});
-                var position = {
-                    lineWidth: 4,
-                    strokeStyle: "#FFFFFF",
-                    shadowBlur: 6,
-                    shadowColor: "#FFFFFF",
-                    x: $(".student-marissa").offset().left + $(".student-marissa").outerWidth()/2,
-                    y: $(".student-marissa").offset().top + $(".student-marissa").outerHeight()/2,
-                    endX: $(".student-wilma").offset().left + $(".student-wilma").outerWidth()/2,
-                    endY: $(".student-wilma").offset().top + $(".student-wilma").outerHeight()/2,
-                };
 
-                position.endX -= position.x;
-                position.endY -= position.y;
-
-                // console.log(position);
-                this.addToStage(Facade.Line(position));
-                // this.stop();
-            });
             window.stage = stage;
             window.Facade = Facade;
             window.director = director;
@@ -66,9 +42,61 @@ define(['backbone', 'jquery', 'underscore', 'levels', 'level_definitions', 'walr
             director.classroom.each(function(student) {
                 students.push(student);
             });
-            var personResult = personInfo.compile({students: students});
+            var studentList = person.compile({students: students});
 
-            $("#gameBoard").append(personResult);
+            $("#gameBoard").append(studentList);
+
+            $(".person").on("click", function(event) {
+                var selectedPersonEl = this;
+                $(selectedPersonEl).addClass("selected");
+                $("#gameBoard").on("click", function(event) {
+                    $(selectedPersonEl).removeClass("selected");
+                    stage.clear();
+                });
+                var edges = [];
+                // edges.push({origin: "oppenheimer", destination: "barney"});
+                // edges.push({origin: "oppenheimer",  destination: "umberto"});
+                // edges.push({origin: "umberto",  destination: "oppenheimer"});
+
+                // console.log(director.graph.getOrCreateNode($(this).data("id")));
+                director.graph.eachEdgeFrom($(this).data("id"), function(edge, toName) {
+                    if(edge.toName) {
+                        console.log(edge, toName);
+                        edges.push({origin: edge.fromName, destination: edge.toName});
+
+                        stage.draw(function() {
+                            var that = this;
+                            this.clear();
+
+                            // this.addToStage(student_image, {x: 20, y: 20});
+                            _.each(edges, function(edge) {
+                                var prefix = ".student-",
+                                    $origin = $(prefix + edge.origin),
+                                    $destination = $(prefix + edge.destination),
+                                    position = {
+                                        lineWidth: 4,
+                                        strokeStyle: "#FFFFFF",
+                                        shadowBlur: 6,
+                                        shadowColor: "#FFFFFF",
+                                        x: $origin.offset().left + $origin.outerWidth()/2,
+                                        y: $origin.offset().top + $origin.outerHeight()/2,
+                                        endX: $destination.offset().left + $destination.outerWidth()/2,
+                                        endY: $destination.offset().top + $destination.outerHeight()/2,
+                                    };
+
+                                position.endX -= position.x;
+                                position.endY -= position.y;
+
+                                that.addToStage(Facade.Line(position));
+                            });
+
+                            // this.stop();
+                        });
+
+                    }
+                });
+                // personInfo.compile({})
+            });
 
 
             // var sigInst = sigma.init($("#gameBoard").get(0)).drawingProperties({

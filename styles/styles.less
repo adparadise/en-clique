@@ -48,9 +48,25 @@ body {
     position: relative;
     // z-index: 1;
 
+
     &.is-leader, &.is-leader:before {
         box-shadow: 0 0 0 .1em #fff,
                     0 0 .2em .2em #fff;
+    }
+    &:after {
+        transition: 200ms all;
+        content: '';
+        background: url('/images/envelope-128.png');
+        background-size: 32px;
+        width: 28px;
+        height: 17px;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -50%;
+        background-position: -2px -7px;
+        border-radius: 5%;
+        opacity: 0;
     }
     &.has-message{
         &.active-message:after {
@@ -62,17 +78,8 @@ body {
             animation-iteration-count: infinite;
         }
         &:after {
-            content: '';
-            background: url('/images/envelope-128.png');
-            background-size: 32px;
-            width: 28px;
-            height: 17px;
-            display: block;
-            position: absolute;
+            opacity: 1;
             top: -50%;
-            left: -50%;
-            background-position: -2px -7px;
-            border-radius: 5%;
         }
     }
 
@@ -90,7 +97,7 @@ body {
         background: darken(#ff0000, 30%);
         z-index: -1;
     }
-    &:hover &-name {
+    &.selected &-name, &:hover &-name {
         opacity: 1;
     }
     &-name {
